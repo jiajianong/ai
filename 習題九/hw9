@@ -1,0 +1,33 @@
+#由chatgpt生成並修改
+
+import openai
+
+# 設置你的OpenAI API密鑰
+api_key = 'your_openai_api_key_here'
+openai.api_key = api_key
+
+def chat_with_openai(prompt):
+    # 請求OpenAI生成回答
+    response = openai.Completion.create(
+        engine="davinci",  # 可以根據需要更改引擎
+        prompt=prompt,
+        max_tokens=150  # 生成的最大token數量
+    )
+    
+    # 獲取OpenAI生成的回答
+    answer = response.choices[0].text.strip()
+    return answer
+
+# 主程序
+print("歡迎來到OpenAI聊天！輸入'退出'來退出。")
+while True:
+    user_input = input("你: ")
+    
+    # 檢查用戶是否想退出
+    if user_input.lower() == '退出':
+        print("再見！")
+        break
+    
+    # 使用OpenAI回答用戶的問題
+    response = chat_with_openai(user_input)
+    print("OpenAI:", response)
