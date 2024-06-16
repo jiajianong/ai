@@ -1,0 +1,33 @@
+#用chatgpt生成並修改
+
+from scipy.optimize import linprog
+
+# 目標函數係數（因為 linprog 是最小化，所以我們對目標函數係數取相反數）
+c = [-3, -2, -5]
+
+# 不等式左邊的係數
+A = [
+    [1, 1, 0],
+    [2, 0, 1],
+    [0, 1, 2]
+]
+
+# 不等式右邊的常數項
+b = [10, 9, 11]
+
+# 變量的邊界
+x_bounds = (0, None)
+y_bounds = (0, None)
+z_bounds = (0, None)
+
+# 使用 linprog 解決線性規劃問題
+res = linprog(c, A_ub=A, b_ub=b, bounds=[x_bounds, y_bounds, z_bounds], method='highs')
+
+# 輸出結果
+if res.success:
+    print(f'Optimal value: {res.fun * -1}')
+    print(f'x: {res.x[0]}')
+    print(f'y: {res.x[1]}')
+    print(f'z: {res.x[2]}')
+else:
+    print('No solution found')
